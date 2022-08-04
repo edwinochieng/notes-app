@@ -4,7 +4,20 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        'quicksand' : 'Quicksand',
+        'urbanist' : 'Urbanist'
+      },
+      width : {
+        '82': '21rem',
+        '116' : '34rem',
+        '128' : '38rem'
+      },
+      height : {
+        '50' : '200px'
+      }
+    },
   },
   plugins: [],
 }
