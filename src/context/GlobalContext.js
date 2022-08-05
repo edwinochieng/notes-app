@@ -35,10 +35,18 @@ export function GlobalProvider({children}) {
          } )
     }
 
+    function addNote(note) {
+        dispatch({
+            type: 'ADD_NOTE',
+            payload : note
+        })
+    }
+
     return(
         <GlobalContext.Provider value ={{
             notes : state.notes,
-            deleteNote
+            deleteNote,
+            addNote
         }}>
             {children}
         </GlobalContext.Provider>
