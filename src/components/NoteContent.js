@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import {GlobalContext} from '../context/GlobalContext'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { color } from '@mui/system';
+
 
 function NoteContent({note}) {
+   const{deleteNote} = useContext(GlobalContext);
   return (
     <div className='relative border border-solid mx-2 my-1 px-3 py-2 h-fit w-82 border border-solid border-2 border-zinc-100 rounded-lg bg-neutral-50'>
     <div>
@@ -10,7 +12,7 @@ function NoteContent({note}) {
         <p className='font-urbanist'>{note.content}</p>
     </div>
       <div className='absolute bottom-1 right-1'>
-      <button ><DeleteForeverIcon color ='action' sx= {{fontSize: 17}}/></button>
+      <button onClick = {()=> deleteNote(note.id)}><DeleteForeverIcon color ='action' sx= {{fontSize: 17}}/></button>
       </div>
         
     </div>
