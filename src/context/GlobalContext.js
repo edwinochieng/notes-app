@@ -26,9 +26,19 @@ export function GlobalProvider({children}) {
 
     const [state, dispatch] = useReducer(AppReducer,initialState);
 
+    //actions
+
+    function deleteNote(id) {
+        dispatch({
+            type: 'DELETE_NOTE',
+            payload: id
+         } )
+    }
+
     return(
         <GlobalContext.Provider value ={{
-            notes : state.notes
+            notes : state.notes,
+            deleteNote
         }}>
             {children}
         </GlobalContext.Provider>
