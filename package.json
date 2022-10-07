@@ -1,0 +1,27 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "backend for notes-app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwinochieng/notes-app.git"
+  },
+  "author": "Edwin Ochieng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwinochieng/notes-app/issues"
+  },
+  "homepage": "https://github.com/edwinochieng/notes-app#readme",
+  "dependencies": {
+    "concurrently": "^7.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20"
+  }
+}
