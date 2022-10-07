@@ -6,7 +6,7 @@ import { GlobalProvider } from "./context/GlobalContext";
 
 function App() {
   return (
-    <div className="h-screen bg-zinc-300">
+    <div className="min-h-screen bg-zinc-300">
       <GlobalProvider>
         <Header />
         <div className="flex flex-col items-center">
