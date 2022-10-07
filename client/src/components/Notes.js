@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect} from "react";
 import NoteContent from "./NoteContent";
 import { GlobalContext } from "../context/GlobalContext";
 
 function Notes() {
-  const { notes } = useContext(GlobalContext);
+  const { notes, getNotes} = useContext(GlobalContext);
+
+  useEffect(()=>{
+    getNotes();
+  },[])
 
   return (
-    <div className="grid grid-cols-4 gap-3 mx-24 mt-3">
+    <div className="grid grid-cols-4 gap-3 mx-24 mt-3 ease-in duration-300">
       {notes.map((note) => (
         <NoteContent key={note.id} note={note} />
       ))}
