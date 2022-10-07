@@ -10,7 +10,7 @@ function Notes() {
   },[])
 
   return (
-    <div className="grid grid-cols-4 gap-3 mx-24 mt-3 ease-in duration-300">
+    <div className="grid grid-cols-4 gap-3 mx-24 mt-3 ease-in duration-200">
       {notes.map((note) => (
         <NoteContent key={note.id} note={note} />
       ))}

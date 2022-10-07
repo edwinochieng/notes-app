@@ -15,10 +15,12 @@ function CreateNote() {
       content,
     };
     addNote(newNote);
+    setTitle("");
+    setContent("");
   }
 
   return (
-    <div className="relative bg-neutral-50 border border-solid border-zinc-100 border-2 rounded-xl mt-4 w-128 h-50 pt-4">
+    <div className="relative bg-neutral-50 border border-solid border-zinc-100 rounded-xl mt-4 w-128 h-50 pt-4">
       <form onSubmit={handleSubmit} className="flex flex-col items-start pl-7">
         <input
           onChange={(e) => setTitle(e.target.value)}

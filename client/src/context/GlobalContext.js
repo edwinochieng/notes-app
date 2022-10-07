@@ -33,18 +33,41 @@ export function GlobalProvider({ children }) {
       })
     }
   }
-  function deleteNote(id) {
-    dispatch({
-      type: "DELETE_NOTE",
-      payload: id,
-    });
+  async function deleteNote(id) {
+    try {
+      await Axios.delete(`/api/v1/notes/${id}`)
+      dispatch({
+        type: "DELETE_NOTE",
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload:err.response.data.error
+      })
+    }
+    
   }
 
-  function addNote(note) {
-    dispatch({
-      type: "ADD_NOTE",
-      payload: note,
-    });
+  async function addNote(note) {
+    try {
+      const config = {
+        headers : {
+          'Content-Type': 'application/json'
+        }
+      }
+      const res = await Axios.post('/api/v1/notes',note,config)
+      dispatch({
+        type: "ADD_NOTE",
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FETCH_ERROR",
+        payload:err.response.data.error
+      })
+    }
+    
   }
 
   return (
