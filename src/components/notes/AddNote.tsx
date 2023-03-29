@@ -1,27 +1,41 @@
 "use client";
 
 import React, { useState } from "react";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
-type Note = {
-  title: string;
-  content: string;
-};
+const formSchema = z.object({
+  title: z.string(),
+  content: z.string().min(1).max(400),
+});
+
+type Note = z.infer<typeof formSchema>;
 
 export default function AddNote() {
   const [note, setNote] = useState<Note>({ title: "", content: "" });
 
+  const { mutate } = useMutation(
+    async (note: Note) => await axios.post("/api/notes/newNote", { note }),
+    {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          toast.error(error.response?.data.message);
+        }
+      },
+      onSuccess: (data) => {
+        toast.success("Note saved");
+        setNote({ title: "", content: "" });
+      },
+    }
+  );
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle submitting the note to a database or API
-    console.log(note);
+    mutate(note);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setNote((prevNote) => ({ ...prevNote, [name]: value }));
-  };
   return (
     <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
       <label htmlFor='title' className='font-medium'>
@@ -32,7 +46,7 @@ export default function AddNote() {
         name='title'
         id='title'
         value={note.title}
-        onChange={handleChange}
+        onChange={(e) => setNote({ ...note, title: e.target.value })}
         className='border border-gray-400 rounded-md p-2'
       />
 
@@ -43,7 +57,7 @@ export default function AddNote() {
         name='content'
         id='content'
         value={note.content}
-        onChange={handleChange}
+        onChange={(e) => setNote({ ...note, content: e.target.value })}
         className='border border-gray-400 rounded-md p-2 h-32'
       ></textarea>
 
