@@ -1,28 +1,40 @@
-import Nav from "@/components/navbar/Nav";
+import SignIn from "@/components/auth/buttons/SignIn";
+import SignOut from "@/components/auth/buttons/SignOut";
 import AddNote from "@/components/notes/AddNote";
-import Note from "@/components/notes/Note";
+import NoteList from "@/components/notes/NoteList";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
+import Image from "next/image";
 import React from "react";
 
-const fetchNotes = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/notes/getNotes`);
-
-  if (!res.ok) {
-    throw new Error("Data not fetched");
-  }
-
-  return res.json();
-};
 export default async function Home() {
-  const notes = await fetchNotes();
-  console.log(notes);
+  const session = await getServerSession(authOptions);
 
   return (
     <div>
-      <Nav />
+      <div className='fixed top-0 left-0 w-full flex justify-between py-1'>
+        <div>Home</div>
+        <div className='flex items-center'>
+          <div>{session ? <SignOut /> : <SignIn />}</div>
+          {session && (
+            <div className='ml-1'>
+              <Image
+                src={session?.user.image!}
+                alt='profile'
+                height={35}
+                width={35}
+                className='rounded-full'
+              />
+            </div>
+          )}
+        </div>
+      </div>
       <div className='mt-16'>
         <AddNote />
       </div>
-      <div></div>
+      <div>
+        <NoteList />
+      </div>
     </div>
   );
 }
