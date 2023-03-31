@@ -32,9 +32,7 @@ export default async function Home() {
       <div className='mt-16'>
         <AddNote />
       </div>
-      <div>
-        <NoteList />
-      </div>
+      <div>{session && <NoteList />}</div>
     </div>
   );
 }
