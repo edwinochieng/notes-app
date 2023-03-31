@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
@@ -15,6 +15,7 @@ type Note = z.infer<typeof formSchema>;
 
 export default function AddNote() {
   const [note, setNote] = useState<Note>({ title: "", content: "" });
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
     async (note: Note) => await axios.post("/api/notes/newNote", { note }),
@@ -26,6 +27,7 @@ export default function AddNote() {
       },
       onSuccess: (data) => {
         toast.success("Note saved");
+        queryClient.invalidateQueries(["notes"]);
         setNote({ title: "", content: "" });
       },
     }
