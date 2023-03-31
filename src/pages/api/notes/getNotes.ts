@@ -15,7 +15,7 @@ export default async function handler(
 
   try {
     const user = await prisma.user.findUnique({
-      where: { email: session.user?.email },
+      where: { email: session?.user.email },
     });
 
     const notes = await prisma.note.findMany({
