@@ -4,6 +4,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Note from "./Note";
+import LoadingSpinner from "../Spinner";
 
 const fetchNotes = async () => {
   const res = await axios.get("/api/notes/getNotes");
@@ -18,7 +19,7 @@ export default function NoteList() {
   });
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {
