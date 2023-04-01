@@ -8,13 +8,16 @@ export default async function handler(
   if (req.method !== "PUT") {
     return;
   }
-  const updatedNote = req.body;
+  const { data } = req.body;
+
+  console.log(data);
+
   try {
     const note = await prisma.note.update({
       where: { id: req.query.id },
       data: {
-        title: updatedNote.title,
-        content: updatedNote.content,
+        title: data.title,
+        content: data.content,
       },
     });
 
