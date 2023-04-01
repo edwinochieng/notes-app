@@ -20,7 +20,7 @@ export default function Note({ note }: Props) {
       <p className='text-gray-600 mt-2'>{note.content}</p>
       <div className='flex'>
         <div>
-          <EditNote id={note.id} />
+          <EditNote note={note} />
         </div>
         <div>
           <DeleteNote id={note.id} />
