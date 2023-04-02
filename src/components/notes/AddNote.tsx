@@ -39,36 +39,37 @@ export default function AddNote() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
-      <label htmlFor='title' className='font-medium'>
-        Title
-      </label>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col space-y-4 rounded-md bg-white shadow-xl p-4 max-w-[800px] w-full mx-auto'
+    >
       <input
         type='text'
         name='title'
         id='title'
+        placeholder='Title'
         value={note.title}
         onChange={(e) => setNote({ ...note, title: e.target.value })}
-        className='border border-gray-400 rounded-md p-2'
+        className=' rounded-md p-2 border border-gray-100 outline-none '
       />
 
-      <label htmlFor='content' className='font-medium'>
-        Content
-      </label>
       <textarea
         name='content'
         id='content'
+        placeholder='Take a note...'
         value={note.content}
         onChange={(e) => setNote({ ...note, content: e.target.value })}
-        className='border border-gray-400 rounded-md p-2 h-32'
+        className=' rounded-md p-2 h-auto border border-gray-100 outline-none'
       ></textarea>
 
-      <button
-        type='submit'
-        className='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600'
-      >
-        Save
-      </button>
+      <div className='flex justify-end'>
+        <button
+          type='submit'
+          className=' bg-gray-700 text-white py-1 px-5 rounded-md hover:bg-gray-800'
+        >
+          Save
+        </button>
+      </div>
     </form>
   );
 }
