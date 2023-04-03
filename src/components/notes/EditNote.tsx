@@ -74,36 +74,52 @@ export default function EditNote({ note }: Props) {
       <Button variant='outlined' onClick={handleClickOpen}>
         Edit Note
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} maxWidth='sm' fullWidth={true}>
         <DialogTitle>Edit Note</DialogTitle>
         <DialogContent>
-          <label htmlFor='title' className='font-medium'>
-            Title
-          </label>
-          <input
-            type='text'
-            name='title'
-            id='title'
-            value={newNote.title}
-            onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
-            className='border border-gray-400 rounded-md p-2'
-          />
-          <label htmlFor='content' className='font-medium'>
-            Content
-          </label>
-          <textarea
-            name='content'
-            id='content'
-            value={newNote.content}
-            onChange={(e) =>
-              setNewNote({ ...newNote, content: e.target.value })
-            }
-            className='border border-gray-400 rounded-md p-2 h-32'
-          ></textarea>
+          <div className='flex flex-col'>
+            <label htmlFor='title' className='font-medium text-sm pb-1'>
+              Title
+            </label>
+            <input
+              type='text'
+              name='title'
+              id='title'
+              placeholder='Title'
+              value={newNote.title}
+              onChange={(e) =>
+                setNewNote({ ...newNote, title: e.target.value })
+              }
+              className='rounded-md p-2 border border-gray-100 outline-none '
+            />
+            <label htmlFor='content' className='font-medium py-1 text-sm'>
+              Content
+            </label>
+            <textarea
+              name='content'
+              id='content'
+              placeholder='Note..'
+              value={newNote.content}
+              onChange={(e) =>
+                setNewNote({ ...newNote, content: e.target.value })
+              }
+              className='rounded-md p-2 border border-gray-100 outline-none '
+            ></textarea>
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleEdit}>Save</Button>
+          <Button
+            onClick={handleClose}
+            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-700'
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleEdit}
+            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-700'
+          >
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
