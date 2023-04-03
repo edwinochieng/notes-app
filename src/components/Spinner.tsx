@@ -5,7 +5,7 @@ import React from "react";
 
 export default function LoadingSpinner() {
   return (
-    <div className='bg-white'>
+    <div className='bg-gray-100'>
       <div className='flex justify-center items-center'>
         <Image
           height={22}
