@@ -71,8 +71,11 @@ export default function EditNote({ note }: Props) {
 
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpen}>
-        Edit Note
+      <Button
+        onClick={handleClickOpen}
+        className='text-xs bg-gray-50 hover:bg-gray-100 text-blue-400 hover:text-blue-600'
+      >
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose} maxWidth='sm' fullWidth={true}>
         <DialogTitle>Edit Note</DialogTitle>
@@ -110,13 +113,13 @@ export default function EditNote({ note }: Props) {
         <DialogActions>
           <Button
             onClick={handleClose}
-            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-700'
+            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-red-400'
           >
             Cancel
           </Button>
           <Button
             onClick={handleEdit}
-            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-700'
+            className='text-xs text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-green-500'
           >
             Save
           </Button>

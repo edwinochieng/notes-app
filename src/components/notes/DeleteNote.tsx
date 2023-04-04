@@ -46,7 +46,10 @@ export default function DeleteNote({ id }: { id: string }) {
 
   return (
     <div>
-      <Button variant='outlined' onClick={handleClickOpen}>
+      <Button
+        onClick={handleClickOpen}
+        className='text-xs bg-gray-50 hover:bg-gray-100 text-red-400 '
+      >
         Delete
       </Button>
       <Dialog
@@ -62,8 +65,17 @@ export default function DeleteNote({ id }: { id: string }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus>
+          <Button
+            onClick={handleClose}
+            className='text-xs text-gray-600 bg-gray-50 hover:bg-gray-200 hover:text-gray-700'
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleDelete}
+            autoFocus
+            className='text-xs text-gray-600 bg-gray-50 hover:bg-gray-200 hover:text-red-400'
+          >
             Delete
           </Button>
         </DialogActions>

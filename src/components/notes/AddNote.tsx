@@ -62,7 +62,8 @@ export default function AddNote() {
         className=' rounded-md p-2 h-auto border border-gray-100 outline-none'
       ></textarea>
 
-      <div className='flex justify-end'>
+      <div className='flex justify-between'>
+        <div>{note.content.length}/400</div>
         <button
           type='submit'
           className=' bg-gray-700 text-white py-1 px-5 rounded-md hover:bg-gray-800'
