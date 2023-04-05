@@ -15,10 +15,10 @@ interface Props {
 
 export default function Note({ note }: Props) {
   return (
-    <div className='bg-white border border-gray-400 rounded-md p-4 h-auto w-[350px]'>
-      <h2 className='font-medium text-lg'>{note.title}</h2>
-      <p className='text-gray-600 mt-2'>{note.content}</p>
-      <div className='flex justify-end'>
+    <div className='bg-white shadow-lg rounded-md p-2  w-[350px]'>
+      <h2 className='font-medium text-[16px]'>{note.title}</h2>
+      <p className='text-[15px] text-gray-600 mt-[1px]'>{note.content}</p>
+      <div className='mt-2 flex items-center justify-end'>
         <div className='mr-1'>
           <EditNote note={note} />
         </div>
