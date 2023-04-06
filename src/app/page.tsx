@@ -12,9 +12,8 @@ export default async function Home() {
 
   return (
     <div>
-      <div className='fixed top-0 left-0 w-full flex justify-between py-1'>
-        <div>Home</div>
-        <div className='flex items-center'>
+      <div className='w-full flex items-center justify-end py-2'>
+        <div className='flex items-center '>
           <div>{session ? <SignOut /> : <SignIn />}</div>
           {session && (
             <div className='ml-1'>
@@ -29,7 +28,8 @@ export default async function Home() {
           )}
         </div>
       </div>
-      <div className='mt-16'>
+
+      <div className='my-8'>
         <AddNote />
       </div>
       <div>{session && <NoteList />}</div>
