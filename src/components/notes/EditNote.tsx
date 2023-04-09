@@ -9,6 +9,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { z } from "zod";
+
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Title is required" })
+    .max(60, { message: "Title should not exceed 60 characters" }),
+  content: z
+    .string()
+    .min(1, { message: "Content is required" })
+    .max(350, { message: "Content should not exceed 350 characters" }),
+});
 
 type Note = {
   id: string;
@@ -20,10 +32,12 @@ interface Props {
   note: Note;
 }
 
-type NewNote = {
-  title: string;
-  content: string;
-};
+type NewNote = z.infer<typeof formSchema>;
+
+interface NoteFormErrors {
+  title?: string;
+  content?: string;
+}
 
 export default function EditNote({ note }: Props) {
   const [open, setOpen] = React.useState(false);
@@ -31,6 +45,7 @@ export default function EditNote({ note }: Props) {
     title: note.title,
     content: note.content,
   });
+  const [errors, setErrors] = React.useState<NoteFormErrors>({});
 
   const queryClient = useQueryClient();
 
@@ -64,9 +79,15 @@ export default function EditNote({ note }: Props) {
     }
   );
 
-  const handleEdit = () => {
-    mutate(newNote);
-    setOpen(false);
+  const handleEdit = async () => {
+    try {
+      await formSchema.parse(note);
+      mutate(newNote);
+      setErrors({});
+    } catch (error: any) {
+      const errorMessage = error.errors[0]?.message;
+      setErrors({ [error.errors[0]?.path[0]]: errorMessage });
+    }
   };
 
   return (
@@ -93,8 +114,12 @@ export default function EditNote({ note }: Props) {
               onChange={(e) =>
                 setNewNote({ ...newNote, title: e.target.value })
               }
-              className='rounded-md p-2 border border-gray-100 outline-none '
+              className='text-sm rounded-md py-1 px-2 border border-gray-100 outline-none  '
             />
+            {errors.title && (
+              <span className='text-red-500 text-xs'>{errors.title}</span>
+            )}
+
             <label htmlFor='content' className='font-medium py-1 text-sm'>
               Content
             </label>
@@ -106,8 +131,14 @@ export default function EditNote({ note }: Props) {
               onChange={(e) =>
                 setNewNote({ ...newNote, content: e.target.value })
               }
-              className='rounded-md p-2 border border-gray-100 outline-none '
+              className=' text-sm rounded-md py-1 px-2 h-28 border border-gray-100  outline-none '
             ></textarea>
+            {errors.content && (
+              <span className='text-red-500 text-xs'>{errors.content}</span>
+            )}
+          </div>
+          <div className='text-xs font-semibold text-gray-700 pt-1'>
+            {newNote.content.length}/350
           </div>
         </DialogContent>
         <DialogActions>
