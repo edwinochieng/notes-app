@@ -29,7 +29,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className='my-7'>
+      <div className='my-8'>
         <AddNote />
       </div>
       <div>{session && <NoteList />}</div>
