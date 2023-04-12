@@ -22,7 +22,19 @@ export default async function handler(
   }
   const { data } = req.body;
 
-  await formSchema.parse(data);
+  try {
+    await formSchema.parseAsync(data);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const errorMessages = error.errors.map((err) => ({
+        field: err.path.join("."),
+        message: err.message,
+      }));
+      return res.status(400).json({ errors: errorMessages });
+    } else {
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
 
   try {
     const note = await prisma.note.update({
@@ -35,10 +47,6 @@ export default async function handler(
 
     res.status(200).json({ message: "Edited Successfully" });
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      res.status(400).json({ message: error.message });
-    } else {
-      res.status(500).json({ message: "Server error" });
-    }
+    res.status(500).json({ message: "Server error" });
   }
 }
