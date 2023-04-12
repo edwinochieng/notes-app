@@ -61,7 +61,7 @@ export default function AddNote() {
   return (
     <form
       onSubmit={handleSubmit}
-      className='flex flex-col space-y-4 rounded-md bg-white shadow-xl p-4 max-w-[800px] w-full mx-auto'
+      className='flex flex-col space-y-4 rounded-md bg-white shadow-xl p-3 sm:p-4 max-w-[800px] w-full mx-auto'
     >
       <input
         type='text'
