@@ -34,18 +34,12 @@ interface Props {
 
 type NewNote = z.infer<typeof formSchema>;
 
-interface NoteFormErrors {
-  title?: string;
-  content?: string;
-}
-
 export default function EditNote({ note }: Props) {
   const [open, setOpen] = React.useState(false);
   const [newNote, setNewNote] = React.useState<NewNote>({
     title: note.title,
     content: note.content,
   });
-  const [errors, setErrors] = React.useState<NoteFormErrors>({});
 
   const queryClient = useQueryClient();
 
@@ -69,12 +63,13 @@ export default function EditNote({ note }: Props) {
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
-          toast.error("Error editing note");
+          toast.error(error.response?.data.errors[0].message);
         }
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["notes"]);
         toast.success("Note has been edited");
+        setOpen(false);
       },
     }
   );
@@ -83,10 +78,8 @@ export default function EditNote({ note }: Props) {
     try {
       await formSchema.parse(note);
       mutate(newNote);
-      setErrors({});
     } catch (error: any) {
-      const errorMessage = error.errors[0]?.message;
-      setErrors({ [error.errors[0]?.path[0]]: errorMessage });
+      setOpen(true);
     }
   };
 
@@ -116,9 +109,6 @@ export default function EditNote({ note }: Props) {
               }
               className='text-sm rounded-md py-1 px-2 border border-gray-100 outline-none  '
             />
-            {errors.title && (
-              <span className='text-red-500 text-xs'>{errors.title}</span>
-            )}
 
             <label htmlFor='content' className='font-medium py-1 text-sm'>
               Content
@@ -133,9 +123,6 @@ export default function EditNote({ note }: Props) {
               }
               className=' text-sm rounded-md py-1 px-2 h-28 border border-gray-100  outline-none '
             ></textarea>
-            {errors.content && (
-              <span className='text-red-500 text-xs'>{errors.content}</span>
-            )}
           </div>
           <div className='text-xs font-semibold text-gray-700 pt-1'>
             {newNote.content.length}/350
