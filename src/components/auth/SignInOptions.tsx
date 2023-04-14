@@ -17,7 +17,11 @@ export default function SignInOptions() {
     setTimeout(() => {
       router.push("/");
     }, 3000);
-    return <div className='text-gray-800'>You are already signed in</div>;
+    return (
+      <div className='max-w-[250px] mx-auto w-full font-semibold text-base text-gray-700'>
+        You are already signed in
+      </div>
+    );
   }
   return (
     <div className='max-w-[250px] mx-auto flex flex-col items-center space-y-2 text-sm'>
