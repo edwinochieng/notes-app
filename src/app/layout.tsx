@@ -13,8 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='bg-gray-100 px-3 sm:px-16 lg:px-36'>
-        <Providers>{children}</Providers>
+      <body className='bg-gray-100'>
+        <Providers>
+          <div className='max-w-[1500px] mx-auto w-full px-3 sm:px-16 lg:px-32'>
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
